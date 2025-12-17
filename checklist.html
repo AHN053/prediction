@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Sains Komputer SPM 2025</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .question-number {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Checklist Sains Komputer SPM 2025</h1>
+
+    <h2>Bahagian A</h2>
+    <ul>
+        <li><input type="checkbox"><span class="question-number">1.</span> Teknik Pemikiran – ciri-ciri</li>
+        <li><input type="checkbox"><span class="question-number">2.</span> Simbol berkaitan dengan ERD / Carta alir / operator</li>
+        <li><input type="checkbox"><span class="question-number">3.</span> Analisis Terbaik Pengaturcaraan</li>
+        <li><input type="checkbox"><span class="question-number">4.</span> Ciri-ciri pembolehubah, pemalar</li>
+        <li><input type="checkbox"><span class="question-number">5.</span> Kenal pasti pembolehubah, pemalar</li>
+        <li><input type="checkbox"><span class="question-number">6.</span> Hitung dalam atur cara (bagi atur cara / suruh hitung purata / guna operator betul)</li>
+        <li><input type="checkbox"><span class="question-number">7.</span> Kenal pasti input/output dalam atur cara (Java vs JavaScript)</li>
+        <li><input type="checkbox"><span class="question-number">8.</span> Simbol-simbol berkaitan ERD, Get logik, carta alir</li>
+        <li><input type="checkbox"><span class="question-number">9.</span> Objek dalam pangkalan data (Form, Report, Table, Query)</li>
+        <li><input type="checkbox"><span class="question-number">10.</span> Model-model dalam Pangkalan Data (Tulis model / contoh / ciri-ciri)</li>
+        <li><input type="checkbox"><span class="question-number">11.</span> Prinsip Reka Bentuk Interaksi</li>
+        <li><input type="checkbox"><span class="question-number">12.</span> Penyulitan</li>
+        <li><input type="checkbox"><span class="question-number">13.</span> Komponen dalam Hardware Von Neumann (ALU, Daftar, CPU)</li>
+        <li><input type="checkbox"><span class="question-number">14.</span> Get Logik (Namakan atau lukis, Ungkapan Boolean)</li>
+        <li><input type="checkbox"><span class="question-number">15.</span> Bahasa Penskripan Pelayan dan Pelanggan (Fungsi dan contoh, Pelayan / Pelanggan – HTML, CSS)</li>
+        <li><input type="checkbox"><span class="question-number">16.</span> CSS – tanya fungsi</li>
+        <li><input type="checkbox"><span class="question-number">17.</span> SQL – coding (SELECT, MIN, SUM, MAX, Fungsi – memformat dokumen)</li>
+        <li><input type="checkbox"><span class="question-number">18.</span> Prinsip antara muka</li>
+        <li><input type="checkbox"><span class="question-number">19.</span> Isihan – ciri-ciri, dua coding (Hafal dan susun)</li>
+    </ul>
+
+    <h2>Bahagian B</h2>
+    <ul>
+        <li><input type="checkbox"><span class="question-number">21.</span> Get logik – agak susah (Start daripada situasi, Lukiskan, Diberi kebenaran, Exclusive OR – hafal)</li>
+        <li><input type="checkbox"><span class="question-number">22.</span> SQL – Bina jadual, SELECT sum, average, min, max, CREATE TABLE, Manipulasi data</li>
+        <li><input type="checkbox"><span class="question-number">23.</span> Carta Alir – Bentuk antaramuka atau pseudokod, Tumpu coding isihan</li>
+        <li><input type="checkbox"><span class="question-number">24.</span> Prinsip Reka Bentuk Interaksi – Rujuk soalan Kelantan Trial, Elemen KBAT, Buat ayat penilaian sendiri, Buat perbandingan</li>
+    </ul>
+
+    <p id="save-note">Status checklist akan disimpan dalam pelayar anda (localStorage).</p>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+        const storageKey = 'checklist-state-v1';
+
+        // Assign stable IDs if missing
+        checkboxes.forEach((cb, i) => {
+            if (!cb.id) cb.id = `cb-${i}`;
+        });
+
+        // Restore saved state
+        const saved = localStorage.getItem(storageKey);
+        if (saved) {
+            try {
+                const obj = JSON.parse(saved);
+                checkboxes.forEach(cb => {
+                    if (obj[cb.id] !== undefined) cb.checked = !!obj[cb.id];
+                });
+            } catch (e) {
+                console.error('Gagal baca checklist tersimpan', e);
+            }
+        }
+
+        // Save function
+        const save = () => {
+            const obj = {};
+            checkboxes.forEach(cb => obj[cb.id] = cb.checked);
+            localStorage.setItem(storageKey, JSON.stringify(obj));
+        };
+
+        // Watch for changes and save
+        checkboxes.forEach(cb => cb.addEventListener('change', save));
+
+        // Add a clear button so user can reset saved state
+        const controls = document.createElement('div');
+        controls.style.marginTop = '20px';
+        const clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.textContent = 'Kosongkan simpanan checklist';
+        clearBtn.addEventListener('click', () => {
+            if (confirm('Padamkan semua tanda?')) {
+                localStorage.removeItem(storageKey);
+                checkboxes.forEach(cb => cb.checked = false);
+            }
+        });
+        controls.appendChild(clearBtn);
+        document.body.appendChild(controls);
+    });
+    </script>
+
+</body>
+</html>
